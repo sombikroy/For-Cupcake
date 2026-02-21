@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bubsss 🤍 Cupcake</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to top, #fcefee, #f8e8ff);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    text-align: center;
+}
+
+/* Main Card */
+.container {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(15px);
+    padding: 50px 40px;
+    border-radius: 25px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    max-width: 480px;
+    animation: fadeIn 2s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.names {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: #b76e79;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    color: #b76e79;
+    margin-bottom: 15px;
+}
+
+p {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6;
+    min-height: 120px;
+    white-space: pre-line;
+}
+
+button {
+    margin-top: 25px;
+    padding: 12px 28px;
+    border-radius: 30px;
+    border: none;
+    background: #d8a7b1;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background: #c08497;
+    transform: scale(1.05);
+}
+
+/* Popup */
+.popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(6px);
+    z-index: 5;
+}
+
+.popup-content {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 420px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    animation: fadeUp 0.6s ease;
+}
+
+.popup-content h2 {
+    font-family: 'Playfair Display', serif;
+    color: #b76e79;
+    margin-bottom: 15px;
+}
+
+.popup-content p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Floating Hearts */
+.heart {
+    position: absolute;
+    color: rgba(255, 182, 193, 0.5);
+    font-size: 18px;
+    animation: float 10s linear infinite;
+    z-index: 1;
+}
+
+/* Animations */
+@keyframes float {
+    from { transform: translateY(100vh); }
+    to { transform: translateY(-10vh); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background Music -->
+<audio id="bgMusic" autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Main Card -->
+<div class="container">
+    <div class="names">Bubsss 🤍 Cupcake</div>
+    <h1>My Sweet Girl</h1>
+    <p id="message"></p>
+    <button onclick="openLetter()">Forever?</button>
+</div>
+
+<!-- Secret Love Letter -->
+<div id="loveLetter" class="popup">
+    <div class="popup-content">
+        <h2>To My Forever 🤍</h2>
+        <p>
+My Cupcake,
+
+If someday you doubt how deeply you are loved,
+come back to this moment.
+
+I may not always say the perfect words,
+but my heart has already chosen you.
+
+Not for a season.
+Not for convenience.
+But for life.
+
+— Yours, Honeypie 🤍
+        </p>
+        <button onclick="closeLetter()">Close 🤍</button>
+    </div>
+</div>
+
+<script>
+
+/* Typewriter Effect */
+const text = `In a world full of noise, you are my calm.
+In chaos, you are my peace.
+
+I don’t promise perfection.
+I promise effort.
+I promise loyalty.
+And I promise — it will always be you.`;
+
+let i = 0;
+function typeWriter() {
+    if (i < text.length) {
+        document.getElementById("message").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 35);
+    }
+}
+typeWriter();
+
+/* Popup Controls */
+function openLetter() {
+    document.getElementById("loveLetter").style.display = "flex";
+}
+
+function closeLetter() {
+    document.getElementById("loveLetter").style.display = "none";
+}
+
+/* Floating Hearts */
+for(let i=0; i<25; i++){
+    let heart = document.createElement("div");
+    heart.innerHTML = "🤍";
+    heart.classList.add("heart");
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
+    document.body.appendChild(heart);
+}
+
+/* Autoplay Fallback */
+document.addEventListener("click", function() {
+    const music = document.getElementById("bgMusic");
+    music.play();
+});
+
+</script>
+
+</body>
+</html>
