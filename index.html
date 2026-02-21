@@ -17,11 +17,10 @@
 body {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(to top, #fcefee, #f8e8ff);
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
     text-align: center;
 }
 
@@ -86,7 +85,7 @@ button:hover {
     justify-content: center;
     align-items: center;
     backdrop-filter: blur(6px);
-    z-index: 5;
+    z-index: 9999;
 }
 
 .popup-content {
@@ -246,4 +245,5 @@ function closeDaily() {
 </body>
 
 </html>
+
 
