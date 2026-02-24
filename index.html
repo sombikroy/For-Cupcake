@@ -25,27 +25,25 @@ body {
     overflow: hidden;
 }
 
-/* Background Image */
+/* Blurred Background Image */
 body::before {
     content: "";
     position: fixed;
     inset: 0;
     background: url('background.jpg') center/cover no-repeat;
-    filter: blur(12px) brightness(0.6);
-    z-index: -1;
+    filter: blur(14px) brightness(0.6);
     transform: scale(1.1);
+    z-index: -1;
 }
 
 /* Main Card */
 .container {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.9);
     padding: 50px 40px;
     border-radius: 25px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    max-width: 480px;
-    animation: fadeIn 2s ease;
-    z-index: 2;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    max-width: 500px;
+    animation: fadeIn 1.8s ease;
 }
 
 .names {
@@ -53,11 +51,12 @@ body::before {
     font-size: 26px;
     color: #b76e79;
     margin-bottom: 20px;
+    cursor: pointer;
 }
 
 h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 30px;
+    font-size: 28px;
     color: #b76e79;
     margin-bottom: 15px;
 }
@@ -70,13 +69,13 @@ p {
 }
 
 button {
-    margin-top: 20px;
+    margin-top: 18px;
     padding: 12px 28px;
     border-radius: 30px;
     border: none;
     background: #d88fa3;
     color: white;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
     transition: 0.3s ease;
 }
@@ -90,7 +89,7 @@ button:hover {
 .popup {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.55);
     display: none;
     justify-content: center;
     align-items: center;
@@ -104,7 +103,7 @@ button:hover {
     border-radius: 20px;
     max-width: 420px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    animation: fadeUp 0.6s ease;
+    animation: fadeUp 0.5s ease;
 }
 
 .popup-content h2 {
@@ -127,56 +126,64 @@ button:hover {
 
 <body>
 
-<!-- Music -->
+<!-- Background Music -->
 <audio id="bgMusic" loop>
     <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <div class="container">
-    <div class="names">Bubsss 🤍 Cupcake</div>
+
+    <!-- Click Name = Hidden Page -->
+    <div class="names" onclick="window.location.href='secret.html'">
+        Bubsss 🤍 Cupcake
+    </div>
+
     <h1>My Sweet Girl</h1>
+
     <p id="message"></p>
+
     <button onclick="openLetter()">Forever?</button>
     <button onclick="openDaily()">Today’s Note 🤍</button>
+
 </div>
 
-<!-- Love Letter -->
+<!-- Love Letter Popup -->
 <div id="loveLetter" class="popup">
     <div class="popup-content">
         <h2>To My Forever 🤍</h2>
         <p>
 My Cupcake,
 
-Every time I look at us,
-I’m reminded how lucky I am.
+No matter where life takes us,
+I want you to remember this —
 
-Not just for the moments we share,
-but for the way you exist in my life —
-softly, deeply, beautifully.
+You are deeply loved.
+You are chosen.
+And you are my peace.
 
-I don’t just love you.
-I choose you.
-Every single day.
+Not just today.
+Not just in moments.
+But always.
 
-— Yours, Honeypie 🤍
+— Yours 🤍
         </p>
         <button onclick="closeLetter()">Close 🤍</button>
     </div>
 </div>
 
-<!-- Daily Note -->
+<!-- Daily Note Popup -->
 <div id="dailyPopup" class="popup">
     <div class="popup-content">
         <h2>Today’s Note 🤍</h2>
         <p><span id="todayDate"></span> 🤍</p>
         <p id="dailyNoteText">
-Good morning, my love.
+Good morning my love.
 
 Whatever today brings,
-face it knowing you are deeply cherished.
+face it knowing someone believes in you deeply.
 
-Even on ordinary days,
-you are extraordinary to me.
+Even on quiet days,
+you mean the world to me.
         </p>
         <button onclick="closeDaily()">Close 🤍</button>
     </div>
@@ -203,7 +210,7 @@ function typeWriter() {
 }
 typeWriter();
 
-/* Date Auto */
+/* Auto Date */
 const today = new Date();
 document.getElementById("todayDate").innerText =
     today.toLocaleDateString("en-IN", {
@@ -212,7 +219,7 @@ document.getElementById("todayDate").innerText =
         year: 'numeric'
     });
 
-/* Popup Controls */
+/* Popups */
 function openLetter() {
     document.getElementById("loveLetter").style.display = "flex";
 }
