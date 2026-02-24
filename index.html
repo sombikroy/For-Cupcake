@@ -16,24 +16,35 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(to top, #fcefee, #f8e8ff);
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background Image */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: url('background.jpg') center/cover no-repeat;
+    filter: blur(12px) brightness(0.6);
+    z-index: -1;
+    transform: scale(1.1);
 }
 
 /* Main Card */
 .container {
-    background: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(15px);
     padding: 50px 40px;
     border-radius: 25px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     max-width: 480px;
     animation: fadeIn 2s ease;
-    position: relative;
     z-index: 2;
 }
 
@@ -53,18 +64,17 @@ h1 {
 
 p {
     font-size: 18px;
-    color: #555;
+    color: #444;
     line-height: 1.6;
-    min-height: 120px;
     white-space: pre-line;
 }
 
 button {
-    margin-top: 25px;
+    margin-top: 20px;
     padding: 12px 28px;
     border-radius: 30px;
     border: none;
-    background: #d8a7b1;
+    background: #d88fa3;
     color: white;
     font-size: 16px;
     cursor: pointer;
@@ -72,7 +82,7 @@ button {
 }
 
 button:hover {
-    background: #c08497;
+    background: #c06c84;
     transform: scale(1.05);
 }
 
@@ -80,7 +90,7 @@ button:hover {
 .popup {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.4);
+    background: rgba(0,0,0,0.5);
     display: none;
     justify-content: center;
     align-items: center;
@@ -93,7 +103,7 @@ button:hover {
     padding: 40px;
     border-radius: 20px;
     max-width: 420px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     animation: fadeUp 0.6s ease;
 }
 
@@ -101,26 +111,6 @@ button:hover {
     font-family: 'Playfair Display', serif;
     color: #b76e79;
     margin-bottom: 15px;
-}
-
-.popup-content p {
-    font-size: 16px;
-    line-height: 1.6;
-}
-
-/* Floating Hearts */
-.heart {
-    position: absolute;
-    color: rgba(255, 182, 193, 0.5);
-    font-size: 18px;
-    animation: float 10s linear infinite;
-    z-index: 1;
-}
-
-/* Animations */
-@keyframes float {
-    from { transform: translateY(100vh); }
-    to { transform: translateY(-10vh); }
 }
 
 @keyframes fadeIn {
@@ -137,64 +127,56 @@ button:hover {
 
 <body>
 
-<!-- Background Music -->
-<audio id="bgMusic" autoplay loop>
+<!-- Music -->
+<audio id="bgMusic" loop>
     <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Main Card -->
 <div class="container">
     <div class="names">Bubsss 🤍 Cupcake</div>
     <h1>My Sweet Girl</h1>
     <p id="message"></p>
     <button onclick="openLetter()">Forever?</button>
-    <button onclick="openDaily()">Today's Note 🤍</button>
+    <button onclick="openDaily()">Today’s Note 🤍</button>
 </div>
 
-<!-- Secret Love Letter -->
+<!-- Love Letter -->
 <div id="loveLetter" class="popup">
     <div class="popup-content">
         <h2>To My Forever 🤍</h2>
         <p>
 My Cupcake,
 
-If someday you doubt how deeply you are loved,
-come back to this moment.
+Every time I look at us,
+I’m reminded how lucky I am.
 
-I may not always say the perfect words,
-but my heart has already chosen you.
+Not just for the moments we share,
+but for the way you exist in my life —
+softly, deeply, beautifully.
 
-Not for a season.
-Not for convenience.
-But for life.
+I don’t just love you.
+I choose you.
+Every single day.
 
 — Yours, Honeypie 🤍
         </p>
         <button onclick="closeLetter()">Close 🤍</button>
     </div>
 </div>
-    <div id="dailyPopup" class="popup">
+
+<!-- Daily Note -->
+<div id="dailyPopup" class="popup">
     <div class="popup-content">
         <h2>Today’s Note 🤍</h2>
+        <p><span id="todayDate"></span> 🤍</p>
         <p id="dailyNoteText">
-            February 23 🤍
-        Good morning, my love.
-            
-Hey you,
+Good morning, my love.
 
 Whatever today brings,
-face it knowing someone is quietly rooting for you.
+face it knowing you are deeply cherished.
 
-Even if things feel heavy,
-you don’t have to carry everything alone.
-I’m always here — steady, constant, choosing you.
-
-Take it slow.
-Breathe.
-And remember how deeply you are valued.
-
-— Yours 🤍
-
+Even on ordinary days,
+you are extraordinary to me.
         </p>
         <button onclick="closeDaily()">Close 🤍</button>
     </div>
@@ -202,14 +184,14 @@ And remember how deeply you are valued.
 
 <script>
 
-/* Typewriter Effect */
-const text = `In a world full of noise, you are my calm.
-In chaos, you are my peace.
+/* Typewriter */
+const text = `In a world full of noise,
+you are my calm.
 
-I don’t promise perfection.
-I promise effort.
-I promise loyalty.
-And I promise — it will always be you.`;
+In chaos,
+you are my peace.
+
+And I will always choose you.`;
 
 let i = 0;
 function typeWriter() {
@@ -221,47 +203,44 @@ function typeWriter() {
 }
 typeWriter();
 
+/* Date Auto */
+const today = new Date();
+document.getElementById("todayDate").innerText =
+    today.toLocaleDateString("en-IN", {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    });
+
 /* Popup Controls */
 function openLetter() {
     document.getElementById("loveLetter").style.display = "flex";
 }
-
 function closeLetter() {
     document.getElementById("loveLetter").style.display = "none";
 }
-
-/* Floating Hearts */
-for(let i=0; i<25; i++){
-    let heart = document.createElement("div");
-    heart.innerHTML = "🤍";
-    heart.classList.add("heart");
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
-    document.body.appendChild(heart);
-}
-
-/* Autoplay Fallback */
-document.addEventListener("click", function() {
-    const music = document.getElementById("bgMusic");
-    music.play();
-});
-    function openDaily() {
+function openDaily() {
     document.getElementById("dailyPopup").style.display = "flex";
 }
-
 function closeDaily() {
     document.getElementById("dailyPopup").style.display = "none";
 }
 
+/* Music Fade-In */
+const music = document.getElementById("bgMusic");
+music.volume = 0;
+
+document.addEventListener("click", function() {
+    music.play();
+    let fade = setInterval(() => {
+        if (music.volume < 0.4) {
+            music.volume += 0.02;
+        } else {
+            clearInterval(fade);
+        }
+    }, 200);
+});
 </script>
 
 </body>
-
 </html>
-
-
-
-
-
-
-
